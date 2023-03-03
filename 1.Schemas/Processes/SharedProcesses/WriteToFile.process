@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/ProjectZero/Resources/Schemas/SharedProcesses/WriteToFile" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/ProjectZero/Resources/Schemas/SharedProcesses/WriteToFileResponse" xmlns:ns="http://www.tibco.com/schemas/ProjectZero/Resources/Schemas/commons/Header" xmlns:pfx3="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:ns2="http://www.tibco.com/schemas/ProjectZero/Resources/Schemas/commons/Schema.Response">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/ProjectZero/Resources/Schemas/SharedProcesses/WriteToFile" schemaLocation="/Resources/Schemas/SharedProcesses/WriteToFile.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/ProjectZero/Resources/Schemas/SharedProcesses/WriteToFileResponse" schemaLocation="/Resources/Schemas/SharedProcesses/WriteToFileResponse.xsd"/>
+    <pd:name>Processes/SharedProcesses/WriteToFile.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:WriteToFile"/>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <pfx2:WriteToFileResponse>
+            <xsl:copy-of select="$Start/pfx:WriteToFile/ns:Header"/>
+            <pfx2:Body>
+                <ns2:Response>
+                    <ns2:message>
+                        <xsl:value-of select="&quot;Message has been printed out&quot;"/>
+                    </ns2:message>
+                    <ns2:responseStatus>
+                        <xsl:value-of select="&quot;sucess&quot;"/>
+                    </ns2:responseStatus>
+                </ns2:Response>
+            </pfx2:Body>
+        </pfx2:WriteToFileResponse>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx2:WriteToFileResponse"/>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1677838662453</pd:targetNamespace>
+    <pd:activity name="Log">
+        <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+        <pd:resourceType>ae.activities.log</pd:resourceType>
+        <pd:x>310</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <role>User</role>
+        </config>
+        <pd:inputBindings>
+            <pfx3:ActivityInput>
+                <message>
+                    <xsl:value-of select="$Start/pfx:WriteToFile/pfx:Body/pfx:message"/>
+                </message>
+            </pfx3:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Log</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

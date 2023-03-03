@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:Header="http://www.tibco.com/schemas/ProjectZero/Resources/Schemas/commons/Header"
+	 xmlns:Context="http://www.tibco.com/schemas/ProjectZero/Resources/Schemas/Models/Context"
+	 targetNamespace="http://www.tibco.com/schemas/ProjectZero/Resources/Schemas/commons/Header"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.tibco.com/schemas/ProjectZero/Resources/Schemas/Models/Context" schemaLocation="Context.xsd"/>
+	<xs:element name="Header">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="timeStamp" type="xs:dateTime"/>
+				<xs:element ref="Context:Context"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
